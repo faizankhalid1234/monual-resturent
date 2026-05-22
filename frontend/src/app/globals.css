@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+:root {
+  --background: #070707;
+  --foreground: #f7f4ee;
+  --muted-foreground: #a8a29e;
+  --gold: #d4af37;
+  --gold-light: #f0dfa8;
+  --card: rgba(255, 255, 255, 0.04);
+  --glow: rgba(212, 175, 55, 0.15);
+}
+
+.light {
+  --background: #faf8f3;
+  --foreground: #111111;
+  --muted-foreground: #57534e;
+  --card: rgba(0, 0, 0, 0.04);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-card: var(--card);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+@layer utilities {
+  .glass {
+    @apply border border-white/10 bg-white/[0.04] backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35)];
+  }
+  .glass-gold {
+    @apply border border-gold/25 bg-gold/5 backdrop-blur-xl;
+  }
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-[#d4af37] via-[#f5e6b3] to-[#d4af37] bg-clip-text text-transparent;
+  }
+  .shine-border {
+    box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.2), 0 20px 50px -20px var(--glow);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--gold) 45%, transparent);
+  color: #fff;
+}
+
+/* Subtle luxury grain overlay on main */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}

@@ -1,0 +1,27 @@
+{
+  "name": "monal-lahore",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monal Lahore — AI-powered luxury restaurant platform",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:api\"",
+    "dev:web": "npm run dev --prefix frontend",
+    "dev:api": "npm run dev --prefix backend",
+    "build": "npm run build --prefix frontend",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:studio": "prisma studio"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "devDependencies": {
+    "@prisma/client": "^6.19.0",
+    "concurrently": "^9.2.1",
+    "dotenv": "^17.4.2",
+    "prisma": "^6.19.0",
+    "tsx": "^4.22.3"
+  }
+}
