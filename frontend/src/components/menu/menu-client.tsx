@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Search, ShoppingCart, Sparkles } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -32,7 +32,12 @@ export function MenuClient({ items, categories }: MenuClientProps) {
   const [aiPrefs, setAiPrefs] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
   const [aiPicks, setAiPicks] = useState<string[]>([]);
+  const [mounted, setMounted] = useState(false);
   const { addItem, items: cartItems, total } = useCart();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const filtered = useMemo(() => {
     return items.filter((item) => {
@@ -80,7 +85,9 @@ export function MenuClient({ items, categories }: MenuClientProps) {
         </div>
         <div className="flex items-center gap-2 rounded-full glass-gold px-4 py-2 text-gold">
           <ShoppingCart className="h-5 w-5" />
-          <span className="text-sm">{cartItems.length} items · {formatPrice(total())}</span>
+          <span className="text-sm">
+            {mounted ? `${cartItems.length} items · ${formatPrice(total())}` : "Loading cart..."}
+          </span>
         </div>
       </div>
 
