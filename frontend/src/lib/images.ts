@@ -20,6 +20,7 @@ export const MENU_ITEM_IMAGES: Record<string, string> = {
   "Chocolate Lava Cake": local("/images/menu/chocolate-lava-cake.jpg"),
   "Fresh Mint Margarita": local("/images/menu/mint-margarita.jpg"),
   "Karak Chai": local("/images/menu/karak-chai.jpg"),
+  Chusci: local("/images/menu/chusci.png"),
 };
 
 export const CHEF_IMAGES = {
@@ -37,7 +38,7 @@ export const GALLERY_IMAGES = [
   { type: "Rooftop", src: local("/images/gallery/skyline.jpg"), alt: "Skyline view" },
 ] as const;
 
-export const HERO_POSTER = local("/images/hero/restaurant-hero.jpg");
+export const HERO_POSTER = local("/images/hero/restaurant-hero.png");
 export const ABOUT_HERO = local("/images/hero/about-banner.jpg");
 export const EVENTS_HERO = local("/images/hero/events-banner.jpg");
 export const CTA_BG = local("/images/hero/cta-bg.jpg");
@@ -72,6 +73,7 @@ export function getMenuImagePath(slug: string): string {
     "chocolate-lava-cake": MENU_ITEM_IMAGES["Chocolate Lava Cake"],
     "fresh-mint-margarita": MENU_ITEM_IMAGES["Fresh Mint Margarita"],
     "karak-chai": MENU_ITEM_IMAGES["Karak Chai"],
+    chusci: MENU_ITEM_IMAGES["Chusci"],
   };
   return map[slug] ?? FOOD_IMAGES.default;
 }

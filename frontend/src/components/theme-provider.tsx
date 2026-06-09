@@ -13,6 +13,7 @@ type Theme = "dark" | "light";
 
 interface ThemeContextValue {
   theme: Theme;
+  mounted: boolean;
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
 }
@@ -27,15 +28,16 @@ function applyTheme(theme: Theme) {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    if (typeof window === "undefined") return "dark";
-    const stored = localStorage.getItem("monal-theme");
-    return stored === "light" ? "light" : "dark";
-  });
+  const [theme, setThemeState] = useState<Theme>("dark");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    applyTheme(theme);
-  }, [theme]);
+    const stored = localStorage.getItem("monal-theme");
+    const initial: Theme = stored === "light" ? "light" : "dark";
+    setThemeState(initial);
+    applyTheme(initial);
+    setMounted(true);
+  }, []);
 
   const setTheme = useCallback((next: Theme) => {
     setThemeState(next);
@@ -44,12 +46,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const toggleTheme = useCallback(() => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  }, [theme, setTheme]);
+    setThemeState((current) => {
+      const next = current === "dark" ? "light" : "dark";
+      localStorage.setItem("monal-theme", next);
+      applyTheme(next);
+      return next;
+    });
+  }, []);
 
   const value = useMemo(
-    () => ({ theme, setTheme, toggleTheme }),
-    [theme, setTheme, toggleTheme]
+    () => ({ theme, mounted, setTheme, toggleTheme }),
+    [theme, mounted, setTheme, toggleTheme]
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

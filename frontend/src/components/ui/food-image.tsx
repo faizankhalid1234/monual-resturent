@@ -9,6 +9,8 @@ interface FoodImageProps {
   priority?: boolean;
   sizes?: string;
   fill?: boolean;
+  quality?: number;
+  unoptimized?: boolean;
 }
 
 export function FoodImage({
@@ -18,6 +20,8 @@ export function FoodImage({
   priority = false,
   sizes = "(max-width: 768px) 100vw, 33vw",
   fill = true,
+  quality = 90,
+  unoptimized = false,
 }: FoodImageProps) {
   return (
     <Image
@@ -26,8 +30,9 @@ export function FoodImage({
       fill={fill}
       className={cn("object-cover", className)}
       sizes={sizes}
-      quality={90}
+      quality={quality}
       priority={priority}
+      unoptimized={unoptimized}
     />
   );
 }

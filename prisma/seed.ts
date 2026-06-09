@@ -15,6 +15,7 @@ const MENU_ITEM_IMAGES: Record<string, string> = {
   "Chocolate Lava Cake": "/images/menu/chocolate-lava-cake.jpg",
   "Fresh Mint Margarita": "/images/menu/mint-margarita.jpg",
   "Karak Chai": "/images/menu/karak-chai.jpg",
+  Chusci: "/images/menu/chusci.png",
 };
 
 const categories = [
@@ -39,6 +40,13 @@ const menuItems = [
   { name: "Chocolate Lava Cake", category: "desserts", price: 1200, isPopular: true, description: "Molten center with vanilla gelato." },
   { name: "Fresh Mint Margarita", category: "drinks", price: 650, description: "House-blend mocktail." },
   { name: "Karak Chai", category: "drinks", price: 350, description: "Strong Pakistani tea with cardamom." },
+  {
+    name: "Chusci",
+    category: "continental",
+    price: 4800,
+    isPopular: true,
+    description: "Sizzling platter with creamy white sauce, tender protein, and roasted seasonal vegetables.",
+  },
 ];
 
 const reviews = [
