@@ -27,14 +27,15 @@ function applyTheme(theme: Theme) {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark");
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "dark";
+    const stored = localStorage.getItem("monal-theme");
+    return stored === "light" ? "light" : "dark";
+  });
 
   useEffect(() => {
-    const stored = localStorage.getItem("monal-theme");
-    const initial: Theme = stored === "light" ? "light" : "dark";
-    setThemeState(initial);
-    applyTheme(initial);
-  }, []);
+    applyTheme(theme);
+  }, [theme]);
 
   const setTheme = useCallback((next: Theme) => {
     setThemeState(next);

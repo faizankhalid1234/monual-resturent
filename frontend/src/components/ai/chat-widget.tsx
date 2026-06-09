@@ -24,7 +24,13 @@ export function AIChatWidget() {
   const [loading, setLoading] = useState(false);
   const [language, setLanguage] = useState<"en" | "ur">("en");
   const bottomRef = useRef<HTMLDivElement>(null);
-  const sessionId = useRef(`sess_${Date.now()}`);
+  const sessionId = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!sessionId.current) {
+      sessionId.current = `sess_${Date.now()}`;
+    }
+  }, []);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -40,6 +46,7 @@ export function AIChatWidget() {
     setLoading(true);
 
     try {
+      if (!sessionId.current) sessionId.current = `sess_${Date.now()}`;
       const res = await fetch("/api/ai/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

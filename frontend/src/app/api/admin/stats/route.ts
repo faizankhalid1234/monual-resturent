@@ -6,7 +6,7 @@ export async function GET() {
     prisma.reservation.count(),
     prisma.customer.count(),
     prisma.menuItem.count(),
-    prisma.aIChatHistory.groupBy({ by: ["sessionId"] }).then((g: any[]) => g.length),
+    prisma.aIChatHistory.groupBy({ by: ["sessionId"] }).then((g: { sessionId: string }[]) => g.length),
     prisma.order.count(),
     prisma.payment.aggregate({ _sum: { amount: true }, where: { status: "PAID" } }),
   ]);
