@@ -42,6 +42,17 @@ export function Footer() {
               <Mail className="h-4 w-4 text-gold" />
               <a href={`mailto:${SITE.email}`} className="hover:text-gold">{SITE.email}</a>
             </li>
+            <li className="mt-3">
+              <div className="text-sm font-semibold text-gold">Faizan Khalid</div>
+              <div className="mt-1 text-sm text-muted-foreground flex flex-col gap-1">
+                <a href="tel:03029655325" className="flex items-center gap-2 hover:text-gold">
+                  <Phone className="h-4 w-4 text-gold" /> 03029655325
+                </a>
+                <a href="mailto:fk5095129@gmail.com" className="flex items-center gap-2 hover:text-gold">
+                  <Mail className="h-4 w-4 text-gold" /> fk5095129@gmail.com
+                </a>
+              </div>
+            </li>
           </ul>
         </div>
         <div>

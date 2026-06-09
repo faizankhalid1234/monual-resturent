@@ -20,8 +20,8 @@ export async function chatCompletion(
     return {
       content:
         options?.language === "ur"
-          ? "معذرت، AI سروس عارضی طور پر دستیاب نہیں۔ براہ کرم reservations@monallahore.com پر رابطہ کریں۔"
-          : "Our AI concierge is temporarily offline. Please email reservations@monallahore.com or call +92 42 111 666 625.",
+          ? "معذرت، AI سروس عارضی طور پر دستیاب نہیں۔ برائے مہربانی بعد میں دوبارہ کوشش کریں۔"
+          : "Our AI concierge is temporarily offline. Please try again later.",
       model: "fallback",
     };
   }

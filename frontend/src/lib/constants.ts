@@ -4,8 +4,8 @@ export const SITE = {
   description:
     "Pakistan's premier rooftop dining destination — luxury cuisine, panoramic views, and AI-powered hospitality.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://monallahore.com",
-  phone: "+92 42 111 666 625",
-  email: "reservations@monallahore.com",
+  phone: "",
+  email: "",
   whatsapp: "https://wa.me/9242111666625",
   address: "Monal Restaurant, Pir Sohawa Road, Islamabad-Lahore Highway, Lahore",
   coordinates: { lat: 31.4704, lng: 74.0821 },

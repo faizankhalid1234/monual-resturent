@@ -45,6 +45,13 @@ export const FOOD_IMAGES = {
   platter: local("/images/gallery/food-platter.jpg"),
 } as const;
 
+export const PROJECT_IMAGES = [
+  { src: HERO_POSTER, alt: "Restaurant entrance" },
+  ...GALLERY_IMAGES,
+  ...Object.entries(MENU_ITEM_IMAGES).map(([name, src]) => ({ src, alt: name })),
+  ...Object.entries(CHEF_IMAGES).map(([key, src]) => ({ src, alt: key.replace(/([A-Z])/g, " $1").trim() })),
+];
+
 export function getMenuImage(name: string): string {
   return MENU_ITEM_IMAGES[name] ?? FOOD_IMAGES.default;
 }

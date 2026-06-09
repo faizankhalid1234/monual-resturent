@@ -22,7 +22,9 @@ export function Header() {
           <span className="font-display text-2xl font-bold tracking-wider text-gold transition group-hover:text-gold-light">
             MONAL
           </span>
-          <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Lahore</span>
+          <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+            Luxury Rooftop Dining · Lahore
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
