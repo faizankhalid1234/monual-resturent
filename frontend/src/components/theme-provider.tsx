@@ -6,7 +6,7 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useState,
+  useSyncExternalStore,
 } from "react";
 
 type Theme = "dark" | "light";
@@ -19,6 +19,22 @@ interface ThemeContextValue {
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
+const THEME_KEY = "monal-theme";
+const themeListeners = new Set<() => void>();
+
+function subscribeTheme(onStoreChange: () => void) {
+  themeListeners.add(onStoreChange);
+  return () => themeListeners.delete(onStoreChange);
+}
+
+function notifyThemeListeners() {
+  themeListeners.forEach((listener) => listener());
+}
+
+function getStoredTheme(): Theme {
+  if (typeof window === "undefined") return "dark";
+  return localStorage.getItem(THEME_KEY) === "light" ? "light" : "dark";
+}
 
 function applyTheme(theme: Theme) {
   const root = document.documentElement;
@@ -27,31 +43,32 @@ function applyTheme(theme: Theme) {
   root.style.colorScheme = theme;
 }
 
+function setStoredTheme(theme: Theme) {
+  localStorage.setItem(THEME_KEY, theme);
+  notifyThemeListeners();
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark");
-  const [mounted, setMounted] = useState(false);
+  const theme = useSyncExternalStore(subscribeTheme, getStoredTheme, () => "dark" as Theme);
+  const mounted = useSyncExternalStore(
+    subscribeTheme,
+    () => true,
+    () => false
+  );
 
   useEffect(() => {
-    const stored = localStorage.getItem("monal-theme");
-    const initial: Theme = stored === "light" ? "light" : "dark";
-    setThemeState(initial);
-    applyTheme(initial);
-    setMounted(true);
-  }, []);
+    applyTheme(theme);
+  }, [theme]);
 
   const setTheme = useCallback((next: Theme) => {
-    setThemeState(next);
-    localStorage.setItem("monal-theme", next);
+    setStoredTheme(next);
     applyTheme(next);
   }, []);
 
   const toggleTheme = useCallback(() => {
-    setThemeState((current) => {
-      const next = current === "dark" ? "light" : "dark";
-      localStorage.setItem("monal-theme", next);
-      applyTheme(next);
-      return next;
-    });
+    const next = getStoredTheme() === "dark" ? "light" : "dark";
+    setStoredTheme(next);
+    applyTheme(next);
   }, []);
 
   const value = useMemo(

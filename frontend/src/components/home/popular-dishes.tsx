@@ -1,12 +1,25 @@
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { PopularDishesGrid } from "@/components/home/popular-dishes-grid";
 
+type PopularDish = Prisma.MenuItemGetPayload<{
+  include: { category: true };
+}>;
+
+export const dynamic = "force-dynamic";
+
 export async function PopularDishes() {
-  const dishes = await prisma.menuItem.findMany({
-    where: { isPopular: true, isAvailable: true },
-    take: 6,
-    include: { category: true },
-  });
+  let dishes: PopularDish[] = [];
+
+  try {
+    dishes = await prisma.menuItem.findMany({
+      where: { isPopular: true, isAvailable: true },
+      take: 6,
+      include: { category: true },
+    });
+  } catch (error) {
+    console.error("PopularDishes query failed:", error);
+  }
 
   const serialized = dishes.map((dish) => ({
     id: dish.id,

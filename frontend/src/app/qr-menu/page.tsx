@@ -1,20 +1,33 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 import { getMenuImage } from "@/lib/images";
 import { FoodImage } from "@/components/ui/food-image";
+
+type CategoryWithItems = Prisma.CategoryGetPayload<{
+  include: { items: true };
+}>;
 
 export const metadata: Metadata = {
   title: "QR Menu",
   description: "Scan & browse Monal Lahore menu on your phone.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function QRMenuPage() {
-  const categories = await prisma.category.findMany({
-    orderBy: { sortOrder: "asc" },
-    include: { items: { where: { isAvailable: true }, orderBy: { name: "asc" } } },
-  });
+  let categories: CategoryWithItems[] = [];
+
+  try {
+    categories = await prisma.category.findMany({
+      orderBy: { sortOrder: "asc" },
+      include: { items: { where: { isAvailable: true }, orderBy: { name: "asc" } } },
+    });
+  } catch (error) {
+    console.error("QRMenuPage query failed:", error);
+  }
 
   return (
     <div className="min-h-screen bg-[#070707] px-4 py-8 pb-24">

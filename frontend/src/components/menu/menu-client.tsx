@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import { Search, ShoppingCart, Sparkles } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -32,12 +32,12 @@ export function MenuClient({ items, categories }: MenuClientProps) {
   const [aiPrefs, setAiPrefs] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
   const [aiPicks, setAiPicks] = useState<string[]>([]);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const { addItem, items: cartItems, total } = useCart();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const filtered = useMemo(() => {
     return items.filter((item) => {

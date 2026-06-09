@@ -80,8 +80,8 @@ export function AdminDashboard() {
         <CardHeader>
           <CardTitle>Analytics Overview</CardTitle>
         </CardHeader>
-        <CardContent className="h-72">
-          <ResponsiveContainer width="100%" height="100%">
+        <CardContent className="h-72 min-h-[288px]">
+          <ResponsiveContainer width="100%" height="100%" minHeight={288}>
             <BarChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#333" />
               <XAxis dataKey="name" stroke="#888" fontSize={12} />
