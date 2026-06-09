@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   // fetch chat sessions separately to avoid inline-then typing issues
-  const chatGroups = await prisma.aIChatHistory.groupBy({ by: ["sessionId"] });
+  const chatGroups = await prisma.aIChatHistory.groupBy({ by: ["sessionId"] as const });
   const chatSessions = chatGroups.length;
 
   const [reservations, customers, menuItems, orders, revenue] = await Promise.all([
