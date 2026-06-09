@@ -2,11 +2,14 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
-  const [reservations, customers, menuItems, chatSessions, orders, revenue] = await Promise.all([
+  // fetch chat sessions separately to avoid inline-then typing issues
+  const chatGroups = await prisma.aIChatHistory.groupBy({ by: ["sessionId"] });
+  const chatSessions = chatGroups.length;
+
+  const [reservations, customers, menuItems, orders, revenue] = await Promise.all([
     prisma.reservation.count(),
     prisma.customer.count(),
     prisma.menuItem.count(),
-    prisma.aIChatHistory.groupBy({ by: ["sessionId"] }).then((g: { sessionId: string }[]) => g.length),
     prisma.order.count(),
     prisma.payment.aggregate({ _sum: { amount: true }, where: { status: "PAID" } }),
   ]);
