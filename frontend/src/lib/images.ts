@@ -9,6 +9,8 @@ export const MENU_ITEM_IMAGES: Record<string, string> = {
   "Mutton Karahi": local("/images/menu/mutton-karahi.jpg"),
   "Chicken Handi": local("/images/menu/chicken-handi.jpg"),
   "Seekh Kebab Platter": local("/images/menu/seekh-kebab-platter.jpg"),
+  // User-uploaded dish (add the actual image file at public/images/menu/user-dish-1.jpg)
+  "User Dish": local("/images/menu/user-dish-1.jpg"),
   "Beef Bihari Boti": local("/images/menu/beef-bihari-boti.jpg"),
   "Dragon Chicken": local("/images/menu/dragon-chicken.jpg"),
   "Szechuan Noodles": local("/images/menu/szechuan-noodles.jpg"),
