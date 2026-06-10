@@ -107,17 +107,13 @@
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
-  .hero-image-vivid {
-    filter: saturate(1.32) contrast(1.1) brightness(1.06);
-  }
   .hero-gold-wash {
     background: linear-gradient(
       135deg,
-      rgba(212, 175, 55, 0.14) 0%,
-      rgba(255, 140, 50, 0.06) 35%,
+      rgba(212, 175, 55, 0.08) 0%,
+      rgba(255, 140, 50, 0.04) 35%,
       transparent 60%
     );
-    mix-blend-mode: soft-light;
   }
 }
 
