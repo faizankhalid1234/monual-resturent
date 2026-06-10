@@ -46,7 +46,7 @@ export default async function MenuPage() {
 
   return (
     <div className="pb-24">
-      <section className="border-b border-white/10 bg-gradient-to-b from-gold/5 to-transparent py-20 px-4 text-center">
+      <section className="border-b border-[var(--border)] bg-gradient-to-b from-gold/5 to-transparent py-20 px-4 text-center">
         <SectionHeading subtitle="Culinary Excellence" title="Our Menu" description="Six cuisines. One unforgettable skyline." />
       </section>
       <MenuClient items={dto} categories={categories} />

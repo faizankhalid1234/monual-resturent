@@ -4,7 +4,7 @@ import { NAV_LINKS, SITE } from "@/lib/constants";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black/60">
+    <footer className="border-t theme-footer">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
         <div>
           <h3 className="font-display text-2xl text-gold">MONAL LAHORE</h3>
@@ -68,7 +68,7 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <div className="border-t border-white/5 py-6 text-center text-xs text-muted-foreground">
+      <div className="border-t border-[var(--border-subtle)] py-6 text-center text-xs text-muted-foreground">
         © {new Date().getFullYear()} {SITE.name}. All rights reserved. Crafted with AI-powered hospitality.
       </div>
     </footer>

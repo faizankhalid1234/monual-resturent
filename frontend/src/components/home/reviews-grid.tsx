@@ -14,7 +14,7 @@ type Review = {
 
 export function ReviewsGrid({ reviews }: { reviews: Review[] }) {
   return (
-    <section className="py-24 px-4 bg-gradient-to-b from-transparent to-black/40">
+    <section className="py-24 px-4 bg-[var(--section-alt)]">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           subtitle="Testimonials"

@@ -1,6 +1,6 @@
 # Monal Lahore — Final Production Website
 
-Luxury AI-powered restaurant platform with **local images** (no broken links), dark gold UI, and full menu/chef name matching.
+Luxury AI-powered restaurant platform with **local images**, **light & dark themes**, dark-gold UI, and full menu/chef name matching.
 
 ## Quick Start
 
@@ -21,42 +21,47 @@ cd backend && npm run dev    # http://localhost:4000
 cd frontend && npm run dev   # http://localhost:3000
 ```
 
-## Images (Important)
+## Theme
 
-All food & chef photos are stored locally:
+- **Dark mode** (default): luxury black + gold
+- **Light mode**: warm cream + gold — toggle via Sun/Moon icon in header
+- Preference saved in `localStorage` (`monal-theme`)
 
+## Docker (local full stack)
+
+```bash
+docker compose up --build
+# Frontend http://localhost:3000 | API http://localhost:4000
 ```
-frontend/public/images/
-├── menu/          ← mutton-karahi.jpg, chicken-handi.jpg, etc.
-├── chefs/         ← ali-raza.jpg, maria-santos.jpg, li-wei.jpg
-├── gallery/
-└── hero/
-```
 
-**Dish name → image file** mapping is in `frontend/src/lib/images.ts`.  
-To replace a photo: swap the JPG with the **same filename**.
+## Deploy
 
-| Menu Item | File |
-|-----------|------|
-| Mutton Karahi | `menu/mutton-karahi.jpg` |
-| Chicken Handi | `menu/chicken-handi.jpg` |
-| Seekh Kebab Platter | `menu/seekh-kebab-platter.jpg` |
-| Beef Bihari Boti | `menu/beef-bihari-boti.jpg` |
-| Dragon Chicken | `menu/dragon-chicken.jpg` |
-| Szechuan Noodles | `menu/szechuan-noodles.jpg` |
-| Grilled Atlantic Salmon | `menu/grilled-salmon.jpg` |
-| Beef Tenderloin Steak | `menu/beef-steak.jpg` |
-| Gulab Jamun Trio | `menu/gulab-jamun.jpg` |
-| Chocolate Lava Cake | `menu/chocolate-lava-cake.jpg` |
-| Fresh Mint Margarita | `menu/mint-margarita.jpg` |
-| Karak Chai | `menu/karak-chai.jpg` |
+### AWS (recommended)
+
+| Component | Service | Root / path |
+|-----------|---------|-------------|
+| Frontend + Next.js API | **AWS Amplify** | `frontend/` |
+| Express backend | **AWS App Runner** or ECS | `backend/Dockerfile` |
+| Database | **Amazon RDS PostgreSQL** | — |
+
+Full guide: **[aws/DEPLOY.md](./aws/DEPLOY.md)**
+
+### Vercel (alternative)
+
+- Root directory = `frontend`
+- Set `DATABASE_URL`, `NEXT_PUBLIC_API_URL`, `API_SECRET_KEY`
+
+## Images
+
+All food & chef photos are stored locally under `frontend/public/images/`.  
+Mapping is in `frontend/src/lib/images.ts`.
 
 ## Pages
 
 | URL | Description |
 |-----|-------------|
 | `/` | Hero, popular dishes, reviews, gallery, CTA |
-| `/about` | Story + chefs with photos |
+| `/about` | Story + chefs |
 | `/menu` | Full menu, search, cart, AI recommend |
 | `/reservations` | Booking form |
 | `/events` | Private dining |
@@ -64,12 +69,6 @@ To replace a photo: swap the JPG with the **same filename**.
 | `/contact` | Map + form |
 | `/qr-menu` | Mobile QR menu |
 | `/admin` | Dashboard |
-
-## Deploy
-
-- **Vercel:** Root directory = `frontend`
-- **Railway:** Root directory = `backend`
-- Commit `public/images/` — images are bundled with the app
 
 ---
 

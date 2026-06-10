@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-:root {
+:root,
+.dark {
   --background: #070707;
   --foreground: #f7f4ee;
   --muted-foreground: #a8a29e;
@@ -8,13 +9,40 @@
   --gold-light: #f0dfa8;
   --card: rgba(255, 255, 255, 0.04);
   --glow: rgba(212, 175, 55, 0.15);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-elevated: rgba(0, 0, 0, 0.55);
+  --header-bg: rgba(0, 0, 0, 0.72);
+  --header-bg-top: rgba(0, 0, 0, 0.32);
+  --footer-bg: rgba(0, 0, 0, 0.65);
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --popover-bg: #0d0d0d;
+  --shadow: rgba(0, 0, 0, 0.35);
+  --section-alt: rgba(0, 0, 0, 0.35);
+  --page-glow: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(212, 175, 55, 0.08), transparent);
 }
 
 .light {
-  --background: #faf8f3;
-  --foreground: #111111;
-  --muted-foreground: #57534e;
-  --card: rgba(0, 0, 0, 0.04);
+  --background: #faf7f0;
+  --foreground: #1a1612;
+  --muted-foreground: #6b635a;
+  --gold: #a67c00;
+  --gold-light: #c9a227;
+  --card: rgba(255, 255, 255, 0.88);
+  --glow: rgba(166, 124, 0, 0.14);
+  --border: rgba(26, 22, 18, 0.12);
+  --border-subtle: rgba(26, 22, 18, 0.06);
+  --surface: rgba(255, 255, 255, 0.78);
+  --surface-elevated: rgba(255, 255, 255, 0.94);
+  --header-bg: rgba(250, 247, 240, 0.9);
+  --header-bg-top: rgba(250, 247, 240, 0.75);
+  --footer-bg: #f0ebe0;
+  --input-bg: rgba(255, 255, 255, 0.96);
+  --popover-bg: #fffcf7;
+  --shadow: rgba(26, 22, 18, 0.1);
+  --section-alt: rgba(166, 124, 0, 0.05);
+  --page-glow: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(166, 124, 0, 0.1), transparent);
 }
 
 @theme inline {
@@ -24,22 +52,54 @@
   --color-gold: var(--gold);
   --color-gold-light: var(--gold-light);
   --color-card: var(--card);
+  --color-border: var(--border);
+  --color-surface: var(--surface);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
 }
 
 @layer utilities {
   .glass {
-    @apply border border-white/10 bg-white/[0.04] backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35)];
+    border: 1px solid var(--border);
+    background: var(--surface);
+    backdrop-filter: blur(24px);
+    box-shadow: 0 8px 32px var(--shadow);
   }
   .glass-gold {
-    @apply border border-gold/25 bg-gold/5 backdrop-blur-xl;
+    border: 1px solid color-mix(in srgb, var(--gold) 28%, transparent);
+    background: color-mix(in srgb, var(--gold) 6%, transparent);
+    backdrop-filter: blur(16px);
   }
   .text-gradient-gold {
-    @apply bg-gradient-to-r from-[#d4af37] via-[#f5e6b3] to-[#d4af37] bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[var(--gold)] via-[var(--gold-light)] to-[var(--gold)] bg-clip-text text-transparent;
   }
   .shine-border {
-    box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.2), 0 20px 50px -20px var(--glow);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--gold) 22%, transparent),
+      0 20px 50px -20px var(--glow);
+  }
+  .theme-header {
+    background: var(--header-bg);
+    border-color: var(--border);
+  }
+  .theme-header-top {
+    background: var(--header-bg-top);
+    border-color: var(--border-subtle);
+  }
+  .theme-footer {
+    background: var(--footer-bg);
+    border-color: var(--border);
+  }
+  .theme-input {
+    border: 1px solid var(--border);
+    background: var(--input-bg);
+  }
+  .theme-section-alt {
+    background: linear-gradient(to bottom, transparent, var(--section-alt));
+  }
+  .page-ambient {
+    background-image: var(--page-glow);
+    background-repeat: no-repeat;
   }
   .animate-shimmer {
     animation: shimmer 3s ease-in-out infinite;
@@ -81,13 +141,15 @@
   }
 }
 
-.film-grain {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
-}
-
 html {
   scroll-behavior: smooth;
+}
+
+html,
+body {
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease;
 }
 
 body {
@@ -103,10 +165,9 @@ body {
 
 ::selection {
   background: color-mix(in srgb, var(--gold) 45%, transparent);
-  color: #fff;
+  color: var(--foreground);
 }
 
-/* Subtle luxury grain overlay on main */
 body::before {
   content: "";
   position: fixed;
@@ -115,4 +176,8 @@ body::before {
   z-index: 9998;
   opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.light body::before {
+  opacity: 0.02;
 }

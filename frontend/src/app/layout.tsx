@@ -35,12 +35,17 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+const themeScript = `(function(){try{var t=localStorage.getItem("monal-theme");var m=t==="light"?"light":"dark";document.documentElement.classList.add(m);document.documentElement.style.colorScheme=m;}catch(e){document.documentElement.classList.add("dark");}})();`;
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const clerkEnabled = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
   const content = (
-    <html lang="en" suppressHydrationWarning className={`dark ${display.variable} ${body.variable} h-full`}>
-      <body className="min-h-full flex flex-col antialiased">
+    <html lang="en" suppressHydrationWarning className={`${display.variable} ${body.variable} h-full`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className="min-h-full flex flex-col antialiased page-ambient">
         <Providers>
           <Header />
           <main className="flex-1 pt-20">{children}</main>

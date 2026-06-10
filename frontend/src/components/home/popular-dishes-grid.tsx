@@ -20,7 +20,7 @@ type Dish = {
 
 export function PopularDishesGrid({ dishes }: { dishes: Dish[] }) {
   return (
-    <section id="popular-dishes" className="py-24 px-4">
+    <section id="popular-dishes" className="py-24 px-4 theme-section-alt">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           subtitle="Chef's Selection"

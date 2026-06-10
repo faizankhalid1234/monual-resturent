@@ -27,10 +27,8 @@ export function Header() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        "fixed top-0 z-50 w-full border-b backdrop-blur-xl transition-colors duration-500",
-        scrolled
-          ? "border-white/10 bg-black/70 shadow-[0_8px_32px_rgba(0,0,0,0.35)]"
-          : "border-white/5 bg-black/30"
+        "fixed top-0 z-50 w-full border-b backdrop-blur-xl transition-all duration-500",
+        scrolled ? "theme-header shadow-[0_8px_32px_var(--shadow)]" : "theme-header-top"
       )}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 lg:px-8">
@@ -97,7 +95,7 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="border-t border-white/10 bg-black/95 lg:hidden"
+            className="border-t theme-header backdrop-blur-xl lg:hidden"
           >
             <nav className="flex flex-col gap-4 p-6">
               {NAV_LINKS.map((link, i) => (

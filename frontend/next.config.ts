@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 const projectDir = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   turbopack: { root: projectDir },
   images: {
     formats: ["image/avif", "image/webp"],

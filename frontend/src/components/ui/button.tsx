@@ -10,7 +10,7 @@ const buttonVariants = cva(
       variant: {
         default: "bg-gold text-black hover:bg-gold-light shadow-lg shadow-gold/20",
         outline: "border border-gold/40 bg-transparent text-gold hover:bg-gold/10",
-        ghost: "hover:bg-white/5 text-foreground",
+        ghost: "hover:bg-[var(--surface)] text-foreground",
         glass: "glass text-foreground hover:border-gold/40",
         destructive: "bg-red-600 text-white hover:bg-red-700",
       },
