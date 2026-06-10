@@ -58,7 +58,11 @@ export function AIChatWidget() {
         }),
       });
       const data = await res.json();
-      setMessages((m) => [...m, { role: "assistant", content: data.reply }]);
+      const reply =
+        data.reply ??
+        data.error ??
+        "Sorry, I couldn't get a response. Please check OPENAI_API_KEY and try again.";
+      setMessages((m) => [...m, { role: "assistant", content: reply }]);
     } catch {
       setMessages((m) => [
         ...m,
